@@ -1,21 +1,65 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody2D playerRb;
+    [SerializeField] private Animator playerAnimator;
+    [SerializeField] private Rigidbody2D playerRigidbody;
+    [SerializeField] private SpriteRenderer playerSpriteRenderer;
+    [SerializeField] private float speedMultiplier;
+    [SerializeField] private float jumpMultiplier;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        playerRb = GetComponent<Rigidbody2D>();
-    }
+    private bool isJumping;
+    private bool isDoubleJumping;
+    private float doubleJumpingDelay = 0.2f;
+    private float doubleJumpingDelayTimer = 0.0f;
 
     // Update is called once per frame
     void Update()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
-        playerRb.AddForce(Vector2.right * horizontalInput * 3, ForceMode2D.Impulse);
+        if (horizontalInput != 0) playerSpriteRenderer.flipX = horizontalInput > 0 ? false : true;
+        if (!playerAnimator.GetBool("isCrouching")) playerRigidbody.AddForce(Vector2.right * horizontalInput * speedMultiplier, ForceMode2D.Impulse);
+        playerAnimator.SetFloat("horizontalInput", horizontalInput);
+
+        float jumpInput = Input.GetAxis("Jump");
+        if (jumpInput > 0 && !isDoubleJumping)
+        {
+            if (isJumping && Time.time > doubleJumpingDelayTimer)
+            {
+                isDoubleJumping = true;
+                playerRigidbody.AddForce(Vector2.up * jumpInput * jumpMultiplier, ForceMode2D.Impulse);
+            }
+            else if (!isJumping)
+            {
+                isJumping = true;
+                doubleJumpingDelayTimer = Time.time + doubleJumpingDelay;
+                playerRigidbody.AddForce(Vector2.up * jumpInput * jumpMultiplier, ForceMode2D.Impulse);
+            }
+        }
+
+        if (Math.Abs(playerRigidbody.velocity.normalized.y) > 0.1)
+        {
+            isJumping = true;
+            playerAnimator.SetBool("isAirborne", true);
+            playerAnimator.SetBool("isGoingUp", playerRigidbody.velocity.normalized.y > 0 ? true : false);
+        }
+        else
+        {
+            playerAnimator.SetBool("isAirborne", false);
+        }
+
+        float verticalInput = Input.GetAxis("Vertical");
+        playerAnimator.SetBool("isCrouching", verticalInput < 0 && !isJumping);
+
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isJumping = false;
+            isDoubleJumping = false;
+        }
     }
 }
