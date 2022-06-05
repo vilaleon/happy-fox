@@ -11,10 +11,9 @@ public class PlayerController : MonoBehaviour
 
     private bool isJumping;
     private bool isDoubleJumping;
-    private float doubleJumpingDelay = 0.2f;
+    private float doubleJumpingDelay = 0.3f;
     private float doubleJumpingDelayTimer = 0.0f;
 
-    // Update is called once per frame
     void Update()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
