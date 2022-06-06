@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GemController : MonoBehaviour
@@ -8,7 +6,10 @@ public class GemController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        gemAnimator.SetTrigger("Collected");
+        if (collision.CompareTag("Player"))
+        {
+            gemAnimator.SetTrigger("Collected");
+        }
     }
 
     private void DestroyGem()

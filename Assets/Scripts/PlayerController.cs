@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     private float doubleJumpingDelay = 0.3f;
     private float doubleJumpingDelayTimer = 0.0f;
 
-    void Update()
+    void FixedUpdate()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
         if (horizontalInput != 0) playerSpriteRenderer.flipX = horizontalInput > 0 ? false : true;
@@ -53,9 +53,9 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground") && Input.GetAxis("Jump") == 0)
         {
             isJumping = false;
             isDoubleJumping = false;

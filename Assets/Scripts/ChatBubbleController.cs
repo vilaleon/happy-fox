@@ -13,13 +13,19 @@ public class ChatBubbleController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        text.gameObject.SetActive(true);
-        background.gameObject.SetActive(true);
+        if (collision.CompareTag("Player"))
+        {
+            text.gameObject.SetActive(true);
+            background.gameObject.SetActive(true);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        text.gameObject.SetActive(false);
-        background.gameObject.SetActive(false);
+        if (collision.CompareTag("Player"))
+        {
+            text.gameObject.SetActive(false);
+            background.gameObject.SetActive(false);
+        }
     }
 }
