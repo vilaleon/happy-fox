@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyController : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private SpriteRenderer enemySpriteRenderer;
     [SerializeField] private float speedMultiplier;
     [SerializeField] private string animationString;
+
+    [SerializeField] private AudioSource battleCryAudio;
 
     protected Vector3 startingPosition;
     private bool isOnStartingPosition = true;
@@ -46,11 +49,21 @@ public class EnemyController : MonoBehaviour
     {
         isChasing = true;
         isOnStartingPosition = false;
+        playerObject.GetComponent<PlayerController>().Scared();
+        if (battleCryAudio) battleCryAudio.Play();
         enemyAnimator.SetBool(animationString, true);
     }
 
     public void EndChase()
     {
         isChasing = false;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.CompareTag("Player"))
+        {
+            SceneManager.LoadScene(1);
+        }
     }
 }

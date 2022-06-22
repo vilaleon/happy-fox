@@ -8,7 +8,7 @@ public class CameraFollowEffect : MonoBehaviour
     [SerializeField] private float transformMultiplier;
 
     private Vector3 startingPosition;
-    public Vector3 mousePositon;
+    private Vector3 mousePositon;
 
     void Start()
     {
