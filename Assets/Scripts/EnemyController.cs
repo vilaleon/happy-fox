@@ -52,16 +52,19 @@ public class EnemyController : MonoBehaviour
     {
         isChasing = true;
         isOnStartingPosition = false;
-        audioMenager.StopAmbient("ambient");
-        audioMenager.PlayAmbient("battleAudio");
-        playerObject.GetComponent<PlayerController>().Scared();
+        if (audioMenager)
+        {
+            audioMenager.StopAmbient("ambient");
+            audioMenager.PlayAmbient("battleAudio");
+            playerObject.GetComponent<PlayerController>().Scared();
+        }
         if (battleCryAudio) battleCryAudio.Play();
         enemyAnimator.SetBool(animationString, true);
     }
 
     public void EndChase()
     {
-        if (!gotThem)
+        if (!gotThem && audioMenager)
         {
             audioMenager.StopAmbient("battleAudio");
             audioMenager.PlayAmbient("ambient");

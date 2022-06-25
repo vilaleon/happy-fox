@@ -2329,7 +2329,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.047565892, y: -0.06793834}
@@ -2361,7 +2361,7 @@ MonoBehaviour:
   enemyRigidbody: {fileID: 439023669}
   playerObject: {fileID: 1338759147}
   enemySpriteRenderer: {fileID: 439023666}
-  speedMultiplier: 15
+  speedMultiplier: 17
   animationString: isRunning
   audioMenager: {fileID: 0}
   battleCryAudio: {fileID: 0}
@@ -5861,7 +5861,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1231057985}
   m_Layer: 0
-  m_Name: Opposum
+  m_Name: Opossum
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6039,9 +6039,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1272066381}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 34.6, y: -0.56, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1231057985}
@@ -6073,7 +6073,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.6600168, y: 0.48053378}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -6084,7 +6084,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.624351, y: 1.2217847}
+  m_Size: {x: 7, y: 7}
   m_EdgeRadius: 0
 --- !u!4 &1274229126 stripped
 Transform:
