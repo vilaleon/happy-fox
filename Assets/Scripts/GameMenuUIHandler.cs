@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameMenuUIHandler : MonoBehaviour
 {
     [SerializeField] private GameObject gameOverView;
+    [SerializeField] private GameObject victoryView;
     private bool asyncInProgress = false;
 
     public async void RestartGame()
@@ -28,5 +29,10 @@ public class GameMenuUIHandler : MonoBehaviour
     public void ChangeView()
     {
         gameOverView.SetActive(!gameOverView.activeSelf);
+    }
+
+    public void victory()
+    {
+        victoryView.SetActive(!victoryView.activeSelf);
     }
 }

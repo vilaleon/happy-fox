@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour
     private int currentGems = 0;
     [SerializeField] private TextMeshProUGUI gemsText;
     //private int lives = 1;
+    [SerializeField] private GameObject playerObject;
+    [SerializeField] private GameMenuUIHandler menuUI;
+    [SerializeField] private AudioManager audioMenager;
 
     public void updateTotalGems(int x)
     {
@@ -20,5 +23,17 @@ public class GameManager : MonoBehaviour
     {
         currentGems += x;
         gemsText.text = "Gems: " + currentGems + "/" + totalGems;
+
+
+        if (currentGems == totalGems)
+        {
+            playerObject.SetActive(false);
+            audioMenager.StopAmbient("ambient");
+            audioMenager.StopAmbient("battleAudio");
+            audioMenager.PlaySound("endSound");
+            menuUI.victory();
+            menuUI.GetComponent<Animator>().SetTrigger("startFade2");
+        }
     }
+
 }
