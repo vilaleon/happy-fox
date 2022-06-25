@@ -9,12 +9,15 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private SpriteRenderer enemySpriteRenderer;
     [SerializeField] private float speedMultiplier;
     [SerializeField] private string animationString;
+    [SerializeField] private AudioManager audioMenager;
 
     [SerializeField] private AudioSource battleCryAudio;
 
     protected Vector3 startingPosition;
     private bool isOnStartingPosition = true;
     private bool isChasing;
+
+    private bool gotThem;
 
     void Start()
     {
@@ -49,6 +52,8 @@ public class EnemyController : MonoBehaviour
     {
         isChasing = true;
         isOnStartingPosition = false;
+        audioMenager.StopAmbient("ambient");
+        audioMenager.PlayAmbient("battleAudio");
         playerObject.GetComponent<PlayerController>().Scared();
         if (battleCryAudio) battleCryAudio.Play();
         enemyAnimator.SetBool(animationString, true);
@@ -56,14 +61,20 @@ public class EnemyController : MonoBehaviour
 
     public void EndChase()
     {
+        if (!gotThem)
+        {
+            audioMenager.StopAmbient("battleAudio");
+            audioMenager.PlayAmbient("ambient");
+        }
         isChasing = false;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.transform.CompareTag("Player"))
+        if (collision.transform.CompareTag("Player") && !gotThem)
         {
             playerObject.GetComponent<PlayerController>().StartDying();
+            gotThem = true;
         }
     }
 }

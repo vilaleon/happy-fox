@@ -7,8 +7,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator playerAnimator;
     [SerializeField] private Rigidbody2D playerRigidbody;
     [SerializeField] private SpriteRenderer playerSpriteRenderer;
+    [SerializeField] private GameMenuUIHandler menuUI; 
     [SerializeField] private float speedMultiplier;
     [SerializeField] private float jumpMultiplier;
+    [SerializeField] private AudioManager audioMenager;
 
     private bool preventJumpAxis;
     private bool isJumping;
@@ -79,11 +81,16 @@ public class PlayerController : MonoBehaviour
     {
         playerRigidbody.bodyType = RigidbodyType2D.Static;
         playerAnimator.SetTrigger("deathTrigger");
+        audioMenager.StopAmbient("ambient");
+        audioMenager.StopAmbient("battleAudio");
+        audioMenager.PlaySound("endSound");
     }
 
     public void Death()
     {
         gameObject.SetActive(false);
+        menuUI.ChangeView();
+        menuUI.GetComponent<Animator>().SetTrigger("startFade");
     }
 
 }
