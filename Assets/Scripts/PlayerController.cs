@@ -74,4 +74,16 @@ public class PlayerController : MonoBehaviour
     {
         playerAnimator.SetTrigger("scaredTrigger");
     }
+
+    public void StartDying()
+    {
+        playerRigidbody.bodyType = RigidbodyType2D.Static;
+        playerAnimator.SetTrigger("deathTrigger");
+    }
+
+    public void Death()
+    {
+        gameObject.SetActive(false);
+    }
+
 }

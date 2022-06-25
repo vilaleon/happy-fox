@@ -63,7 +63,7 @@ public class EnemyController : MonoBehaviour
     {
         if (collision.transform.CompareTag("Player"))
         {
-            SceneManager.LoadScene(1);
+            playerObject.GetComponent<PlayerController>().StartDying();
         }
     }
 }
